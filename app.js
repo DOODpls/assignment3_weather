@@ -95,13 +95,14 @@ function urlss(){
     .then(x => x.json())
     .then(x => {
       console.log(x)
-      times = new Date( x.currently.time *1000).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+      times = new Date( x.currently.time *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
       htem.textContent = x.currently.temperature.toFixed(1)+'°c'
       apptemp.textContent = 'Feels like:  '+ x.currently.apparentTemperature.toFixed(1)+'°c'
       desc.textContent = x.currently.summary
       datenow.textContent = times
       windspd.textContent = 'Wind:  ' + x.currently.windSpeed+' Kph'
       windir.style.transform = 'rotate(-'+x.currently.windBearing+'deg)'
+      console.log(x.currently.windBearing)
       visib.textContent = 'Visibility:  '+ x.currently.visibility+'km'
       humid.textContent = 'Humidity:  ' + x.currently.humidity * 100+'%'
       uvind.textContent = 'UV Index:  '+ x.currently.uvIndex
@@ -166,15 +167,13 @@ function urlss(){
       }
       
       
-      filtertime = x.hourly.data.filter(function(gettime){
-        return gettime.time >= x.currently.time
-      })
+     
       for(p=0; p<20;p++){
       
       
-      golden = filtertime[p].time
+      golden = x.hourly.data[p].time
       console.log(golden)
-      times = new Date( golden *1000).toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+      times = new Date( golden *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
       const hourlyDivs = document.createElement('div')
       hourlyDivs.className = ('hourly-cards')
       const hourlyHolder = document.querySelector('.hourly-row')
