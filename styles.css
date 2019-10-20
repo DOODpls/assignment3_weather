@@ -120,13 +120,13 @@
 }
 .week-container {
     flex: 70%;
-    height: 502px;
-    background: #285b99;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
+  height: 500px;
+  width: auto;
+  background-color: #36404d;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .week-summary{
   font-size: 1.1em;
@@ -137,13 +137,13 @@
   margin-bottom: 20px;
 }
 .week-stage {
-  flex: 100%;
-  height: 500px;
+  height: auto;
   width: auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  
 }
+
 .spanini{
   position:absolute; 
   width:100%;
@@ -154,19 +154,21 @@
 }
 
 /* Track */
-
 .week-day-container {
-  height: auto;
-  width: 80px;
-  margin-left: 20px;
-  margin-right: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-aroud;
-  align-items: center;
-  position: relative;
+    height: auto;
+    width: 80px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-aroud;
+    align-items: center;
+    position: relative;
 }
-@media (max-width:1150px){
+.week-day-container:hover{
+  opacity: .5;
+}
+@media (max-width:1700px){
   .week-stage {
   width: 80vmin;
   overflow-x: scroll;
