@@ -116,7 +116,7 @@ function urlss(){
       skycons.set("icon0", Skycons = x.currently.icon);
       skycons.play();
       
-      for(i=1;i<8;i++){
+      for(i=0;i<8;i++){
 
         // dately = new Date( x.hourly.data[i].time *1000)
         console.log(x.daily.data[i].time)
@@ -137,6 +137,13 @@ function urlss(){
         divs.appendChild(canv)
         divsholdr.appendChild(divs)
         
+        const spann = document.createElement('span')
+        spann.className = 'spanini'
+        const linkk = document.createElement('a')
+        linkk.href = 'https://youtube.com'
+        linkk.appendChild(spann)
+        divs.appendChild(linkk)
+
         const rainn = document.createElement('p')
         rainn.textContent = 'Rain: ' + x.daily.data[i].precipProbability* 100 +'%'
         divs.appendChild(rainn)
@@ -162,7 +169,7 @@ function urlss(){
         summ.style.fontWeight='bold'
         divs.appendChild(summ)
       }
-      for(y=1;y<8;y++){
+      for(y=0;y<8;y++){
         skycons.set('icons'+(y+1), Skycons = x.daily.data[y].icon)
       }
       
