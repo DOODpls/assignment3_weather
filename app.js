@@ -55,7 +55,7 @@ function search(ele) {
   var unitt = 'units=ca' ////API has configuration of measurements
   var windspd1 = "km/H"
   var visibb = 'km'
-  var temppp = 'c'
+  var temppp = '°C'
   
   document.getElementById("cell").onclick = function() { ///// this is where i convert everthing metric and imperial measurements
     unitt = 'units=ca'
@@ -63,7 +63,7 @@ function search(ele) {
       resetDaily()
       windspd1 = "km/H"
       visibb = 'km'
-      temppp = 'c'
+      temppp = '°C'
    };
 
   
@@ -73,7 +73,7 @@ function search(ele) {
     resetDaily()
     windspd1 = "mp/H"
     visibb = 'mi'
-    temppp = 'f'
+    temppp = '°F'
   })
 
 var skycons = new Skycons({"color": "white"});
@@ -122,7 +122,7 @@ function urlss(){ /////this is where most of the data come from
 
       console.log(x)
       times = new Date( x.currently.time *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
-      htem.textContent = x.currently.temperature.toFixed(1)+'°'+temppp
+      htem.textContent = x.currently.temperature.toFixed(1)+temppp
       apptemp.textContent = 'Feels like:  '+ x.currently.apparentTemperature.toFixed(1)+'°'+temppp
       desc.textContent = x.currently.summary
       datenow.textContent = times
