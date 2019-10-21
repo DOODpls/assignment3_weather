@@ -134,7 +134,7 @@ function render(){
   windir.style.transform = 'rotate(-'+x.currently.windBearing+'deg)'
   
   visib.textContent = 'Visibility:  '+ x.currently.visibility + visibb
-  humid.textContent = 'Humidity:  ' + x.currently.humidity * 100+'%'
+  humid.textContent = 'Humidity:  ' + x.currently.humidity.toFixed(1) * 100+'%'
   uvind.textContent = 'UV Index:  '+ x.currently.uvIndex
   press.textContent = 'Pressure:  '+ x.currently.pressure+' hPa'
   
@@ -296,3 +296,10 @@ function getelement(){
   habaneror = document.querySelector('.habanero') //uvindex(whatever) wont work idk why
 }
 
+
+// window.addEventListener('load', function () {
+//   var datee = document.getElementsByClassName('date-now')
+//   console.log(datee)
+//   console.log(datee.length)
+//   console.log(datee[0])               getting value of html tag via htmlcollection.. but it doenst work
+// });
