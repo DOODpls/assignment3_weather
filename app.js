@@ -86,7 +86,7 @@ function urlss(){ /////this is where most of the data come from
 //---------------------------------CURRENT------------------------------------------------//
 
  function render(){
-   console.log(locres)
+  
     let htem = document.querySelector('.today-temp')
     let desc = document.querySelector('.today-description')
     let apptemp = document.querySelector('.app-temp')
@@ -110,7 +110,7 @@ function urlss(){ /////this is where most of the data come from
     .then(y => y.json())
     .then(y => {
       cityy.textContent = y.city +', '+ y.country
-      console.log(y)
+      
     })
     .catch (err2 => {
       alert('Failed to retrieve location data.')
@@ -120,7 +120,7 @@ function urlss(){ /////this is where most of the data come from
     .then(x => x.json())
     .then(x => {
 
-      console.log(x)
+      
       times = new Date( x.currently.time *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
       htem.textContent = x.currently.temperature.toFixed(1)+temppp
       apptemp.textContent = 'Feels like:  '+ x.currently.apparentTemperature.toFixed(1)+'°'+temppp
@@ -128,7 +128,7 @@ function urlss(){ /////this is where most of the data come from
       datenow.textContent = times
       windspd.textContent = 'Wind:  ' + x.currently.windSpeed + windspd1
       windir.style.transform = 'rotate(-'+x.currently.windBearing+'deg)'
-      console.log(x.currently.windBearing)
+     
       visib.textContent = 'Visibility:  '+ x.currently.visibility + visibb
       humid.textContent = 'Humidity:  ' + x.currently.humidity * 100+'%'
       uvind.textContent = 'UV Index:  '+ x.currently.uvIndex
@@ -140,7 +140,7 @@ function urlss(){ /////this is where most of the data come from
       
       weeksumm.textContent = x.daily.summary
       preload.style.display = 'none'
-      console.log(x.currently.time)
+     
 
       skycons.set("icon0", Skycons = x.currently.icon);
       skycons.play();////this is where the icon animation comes from, API default
@@ -148,12 +148,11 @@ function urlss(){ /////this is where most of the data come from
       for(i=0;i<8;i++){ /////loop based on the data given by the json, starts with 0 ends with 7
         
         dately = new Date( x.daily.data[i].time *1000)
-        console.log(dately)
+        
         var datel = dately.getDate()+'/'+(dately.getMonth()+1)
         var datetoday = datel
 
-        console.log(x.daily.data[i].time)
-        console.log(x.daily.data[i].summary)
+       
         
         const spann = document.createElement('span')
         spann.className = 'spanini'
@@ -205,7 +204,7 @@ function urlss(){ /////this is where most of the data come from
       for(p=0; p<20;p++){/////////////the limit is 20, i tried to put 40 but it wont load
       
       golden = x.hourly.data[p].time
-      console.log(golden)
+     
       /////////////////////this is where i convert unix time to AP/PM
       times = new Date( golden *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
       const hourlyDivs = document.createElement('div')
