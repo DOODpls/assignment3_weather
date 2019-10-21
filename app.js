@@ -39,7 +39,6 @@ function search(ele) {
         locationData()
         render()
         resetDaily()
-        Android.hideKeyboard();
       }else{
         locres = (z.latt+','+z.longt)
       render()
