@@ -127,7 +127,7 @@ function render(){
   
   times = new Date( x.currently.time *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
   htem.textContent = x.currently.temperature.toFixed(1)+temppp
-  apptemp.textContent = 'Feels like:  '+ x.currently.apparentTemperature.toFixed(1)+'°'+temppp
+  apptemp.textContent = 'Feels like:  '+ x.currently.apparentTemperature.toFixed(1)+temppp
   desc.textContent = x.currently.summary
   datenow.textContent = times
   windspd.textContent = 'Wind:  ' + x.currently.windSpeed + windspd1
