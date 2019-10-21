@@ -17,13 +17,12 @@ function locationData(){
 navigator.geolocation.getCurrentPosition(function showLocation(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
-  locres = (lat.toFixed(4)+','+long.toFixed(4));
+  locres = (lat.toFixed(4)+','+long.toFixed(4)); //////this is where i get the long and lat, locally on machine and limit it to 4 decimals
   render()
-  dateTime()
   resetDaily()
 },function(error){
   if (error.code === error.PERMISSION_DENIED){
-    locres = '53.5403912,-113.4960643';
+    locres = '53.5403912,-113.4960643'; /////if the user refuses to accept location, itll give default data... in Edmonton
   render()
   resetDaily()
   }
@@ -32,7 +31,7 @@ navigator.geolocation.getCurrentPosition(function showLocation(position) {
 locationData()
 function search(ele) {
   if(event.key === 'Enter') {
-    var url3 = 'https://geocode.xyz/' + ele.value +'?json=1'   //this is where i convert the long,lat to city name
+    var url3 = 'https://geocode.xyz/' + ele.value +'?json=1'   //this is where i convert the long,lat to city name, this api has a limit, so please dont abuse it huhuhuhuu
     fetch(url3)
     .then(z => z.json())
     .then(z => {
@@ -45,23 +44,44 @@ function search(ele) {
       render()
       resetDaily()
       }
-    })     
+    })
+    .catch(err3 =>{
+      alert('Failed to retrieve location data')
+    })   
   }
 }
-function dateTime(){
-  var today = new Date();
-  dateTm = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+('0' + today.getDate()).slice(-2)+'T'+ ('0' + today.getHours()).slice(-2) + ":" + ('0' + today.getMinutes()).slice(-2) + ":" + ('0' + today.getSeconds()).slice(-2);
+  var cel = document.querySelector('.celsius')
+  var far = document.querySelector('.farenheight')
+  var unitt = 'units=ca' ////API has configuration of measurements
+  var windspd1 = "km/H"
+  var visibb = 'km'
+  var temppp = 'c'
   
-}
+  document.getElementById("cell").onclick = function() { ///// this is where i convert everthing metric and imperial measurements
+    unitt = 'units=ca'
+      render()
+      resetDaily()
+      windspd1 = "km/H"
+      visibb = 'km'
+   };
+
+  
+  far.addEventListener('click', function(){
+    unitt = 'units=us'
+    render()
+    resetDaily()
+    windspd1 = "mp/H"
+    visibb = 'mi'
+  })
+
 var skycons = new Skycons({"color": "white"});
-function urlss(){
-  dateTime()
+function urlss(){ /////this is where most of the data come from
   proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  url1 = 'https://api.darksky.net/forecast/c34e122a56ae30a3090687878bce72c3/' + locres +'?units=auto'   //i have to use proxy because of CORS
+  url1 = 'https://api.darksky.net/forecast/c34e122a56ae30a3090687878bce72c3/' + locres +'?'+unitt   //i have to use proxy because of CORS
 }
 
 
-
+//---------------------------------CURRENT------------------------------------------------//
 
  function render(){
    console.log(locres)
@@ -90,77 +110,83 @@ function urlss(){
       cityy.textContent = y.city +', '+ y.country
       console.log(y)
     })
+    .catch (err2 => {
+      alert('Failed to retrieve location data.')
+    })
     urlss()
     fetch(proxyUrl + url1)
     .then(x => x.json())
     .then(x => {
+
       console.log(x)
       times = new Date( x.currently.time *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
-      htem.textContent = x.currently.temperature.toFixed(1)+'°c'
-      apptemp.textContent = 'Feels like:  '+ x.currently.apparentTemperature.toFixed(1)+'°c'
+      htem.textContent = x.currently.temperature.toFixed(1)+'°'+temppp
+      apptemp.textContent = 'Feels like:  '+ x.currently.apparentTemperature.toFixed(1)+'°'+temppp
       desc.textContent = x.currently.summary
       datenow.textContent = times
-      windspd.textContent = 'Wind:  ' + x.currently.windSpeed+' Kph'
+      windspd.textContent = 'Wind:  ' + x.currently.windSpeed + windspd1
       windir.style.transform = 'rotate(-'+x.currently.windBearing+'deg)'
       console.log(x.currently.windBearing)
-      visib.textContent = 'Visibility:  '+ x.currently.visibility+'km'
+      visib.textContent = 'Visibility:  '+ x.currently.visibility + visibb
       humid.textContent = 'Humidity:  ' + x.currently.humidity * 100+'%'
       uvind.textContent = 'UV Index:  '+ x.currently.uvIndex
       press.textContent = 'Pressure:  '+ x.currently.pressure+' hPa'
+      
+      
+//=============================WEEKLY=====================================// 
+
+      
       weeksumm.textContent = x.daily.summary
       preload.style.display = 'none'
       console.log(x.currently.time)
-      
-
 
       skycons.set("icon0", Skycons = x.currently.icon);
-      skycons.play();
+      skycons.play();////this is where the icon animation comes from, API default
       
-      for(i=0;i<8;i++){
+      for(i=0;i<8;i++){ /////loop based on the data given by the json, starts with 0 ends with 7
+        
+        dately = new Date( x.daily.data[i].time *1000)
+        console.log(dately)
+        var datel = dately.getDate()+'/'+(dately.getMonth()+1)
+        var datetoday = datel
 
-        // dately = new Date( x.hourly.data[i].time *1000)
         console.log(x.daily.data[i].time)
         console.log(x.daily.data[i].summary)
         
-
-        const divs = document.createElement('div')
+        const spann = document.createElement('span')
+        spann.className = 'spanini'
+        spann.id = 'spanini'
+        const divs = document.createElement('div') ////////////i was planning to make the weekly divs clickable so i can change the hourly based on the day that i clicked, but im too dumb so ididnt do it.
         divs.className = ('week-day-container')
         const divsholdr = document.querySelector('.week-stage')
         const canv = document.createElement('canvas')
-        canv.id = ('icons'+(i+1))
+        canv.id = ('icons'+(i+1))  
         canv.height = 120
         canv.width = 100
         
-        var d1 = new Date()
-        var d3 = (d1.getDate()+i)+'/'+(d1.getMonth()+1)
-        var datetoday = d3
-        divs.appendChild(canv)
-        divsholdr.appendChild(divs)
         
-        const spann = document.createElement('span')
-        spann.className = 'spanini'
-        const linkk = document.createElement('a')
-        linkk.href = 'https://youtube.com'
-        linkk.appendChild(spann)
-        divs.appendChild(linkk)
+        divs.appendChild(canv)
+        divsholdr.appendChild(spann)
+        spann.appendChild(divs)
 
         const rainn = document.createElement('p')
-        rainn.textContent = 'Rain: ' + x.daily.data[i].precipProbability* 100 +'%'
+        rainn.textContent = 'Rain: ' + x.daily.data[i].precipProbability.toFixed(1)* 100 +'%'
         divs.appendChild(rainn)
 
         const dates = document.createElement('p')
-        dates.textContent = x.daily.data[i].time
+        dates.className = 'date-now'
+        dates.textContent = datetoday
         divs.appendChild(dates)
 
         const br = document.createElement('br')
         divs.appendChild(br)
 
         const temph = document.createElement('p')
-        temph.textContent = 'High: '+ x.daily.data[i].temperatureHigh 
+        temph.textContent = 'High: '+ x.daily.data[i].temperatureHigh + temppp
         divs.appendChild(temph)
 
         const tempL = document.createElement('p')
-        tempL.textContent = 'Low: ' + x.daily.data[i].temperatureLow   
+        tempL.textContent = 'Low: ' + x.daily.data[i].temperatureLow + temppp 
         divs.appendChild(tempL)
 
         const summ = document.createElement('p')
@@ -170,16 +196,15 @@ function urlss(){
         divs.appendChild(summ)
       }
       for(y=0;y<8;y++){
-        skycons.set('icons'+(y+1), Skycons = x.daily.data[y].icon)
+        skycons.set('icons'+(y+1), Skycons = x.daily.data[y].icon) //////seperate loop for icons
       }
-      
-      
+ //-------------------------------------HOURLY-----------------------------------------//     
      
-      for(p=0; p<20;p++){
-      
+      for(p=0; p<20;p++){/////////////the limit is 20, i tried to put 40 but it wont load
       
       golden = x.hourly.data[p].time
       console.log(golden)
+      /////////////////////this is where i convert unix time to AP/PM
       times = new Date( golden *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
       const hourlyDivs = document.createElement('div')
       hourlyDivs.className = ('hourly-cards')
@@ -193,7 +218,7 @@ function urlss(){
       hourlyDivs.appendChild(canv2)
 
       const tempp = document.createElement('P')
-      tempp.textContent = x.hourly.data[p].temperature
+      tempp.textContent = x.hourly.data[p].temperature + temppp
       hourlyDivs.appendChild(tempp)
 
       const hrsumm = document.createElement('p')
@@ -205,7 +230,7 @@ function urlss(){
       hourlyDivs.appendChild(br)
 
       const hrlyrain = document.createElement('p')
-      hrlyrain.textContent = x.hourly.data[p].precipProbability
+      hrlyrain.textContent ='Rain: ' + x.hourly.data[p].precipProbability.toFixed(1) * 100+'%'
       hourlyDivs.appendChild(hrlyrain)
 
       const windspeedcont = document.createElement('div')
@@ -218,7 +243,7 @@ function urlss(){
       windspeedcont.appendChild(rotatearrow)
 
       const windsp = document.createElement('p')
-      windsp.textContent = x.hourly.data[p].windSpeed
+      windsp.textContent = x.hourly.data[p].windSpeed+windspd1
       windspeedcont.appendChild(windsp)
       
       const hrlytime = document.createElement('p')
@@ -227,8 +252,37 @@ function urlss(){
       
     }
     for(u=0;u<20;u++){
-      skycons.set('icons'+(u+9), Skycons = x.hourly.data[u].icon)
+      skycons.set('icons'+(u+9), Skycons = x.hourly.data[u].icon) ////// i have to seperate the loop for the icons..
     }
+    /////convertin time again to AM/PM
+    sunriseee = new Date( x.daily.data[0].sunriseTime *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+    sunseteee = new Date( x.daily.data[0].sunsetTime *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+    getelement()
+    daysumm.textContent = "Summary: " + x.daily.data[0].summary
+    cloudcov.textContent = "Cloud Cover: " + x.daily.data[0].cloudCover*100+'%'
+    sunris.textContent = "Sunrise: " + sunriseee
+    sunset.textContent = "Sunset: " + sunseteee
+    humidt.textContent = "Humidity: " + x.daily.data[0].humidity * 100+'%'
+    dewpt.textContent = "Dew Point: " + x.daily.data[0].dewPoint+temppp
+    avewinds.textContent = "Wind Speed: " + x.daily.data[0].windSpeed+windspd1
+    avewindg.textContent = "Wind Gust: " + x.daily.data[0].windGust+windspd1
+    habaneror.textContent = "UV Index: " + x.daily.data[0].uvIndex
     })
+    .catch( err => {
+      alert('Failed to retireve data')
+    })
+    
+}
+
+function getelement(){
+  daysumm = document.querySelector('.day-summ')
+  cloudcov = document.querySelector('.cloud-cover')
+  sunris = document.querySelector('.sunrise')
+  sunset = document.querySelector('.sunset')
+  humidt = document.querySelector('.humidity2')
+  dewpt = document.querySelector('.dew-point')
+  avewinds = document.querySelector('.ave-windspeed')
+  avewindg = document.querySelector('.ave-windgust')
+  habaneror = document.querySelector('.habanero') //uvindex(whatever) wont work idk why
 }
 

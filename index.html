@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
+        <title>Barely Weather</title>
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
@@ -24,9 +24,15 @@
             <div class="main-container">
                 <div class="today-container">
                     <div class="today-stage">
+                      <input type="text" class="city-text" id="city-enter" placeholder="Enter City" onkeydown="search(this)">
+                      <div class="unitswitcher">
+                        <div class="celcius" id='cell'>C</div>
+                        <br>
+                        <p>&nbsp;|&nbsp;</p>
+                        <div class="farenheight" id="farr">F</div>
+                      </div>
                         <div class="info-holder">
                           <div class="preload"></div>
-                          <input type="text" class="city-text" id="city-enter" placeholder="Enter City" onkeydown="search(this)">
                           <canvas id="icon0" width="150" height="150"></canvas>
                           <p class="city"></p>
                           <p class="today-temp"></p>
@@ -48,17 +54,47 @@
                 </div>
 
                 <div class="week-container">
-                    <p class="week-summary">Fetching data....</p>
-                    <p>DAILY</p>
-                    <div class="week-stage" id="week-stages">
-                    </div>
+                  <p class="daily-title">DAILY</p>
+                  <p class="week-summary">Fetching data....</p>
+                  <div class="week-stage" id="week-stages">
+                  </div>
                 </div>
                 <div class="hourly-container">
-                  <p class="houly-label">Hourly</p>
+                  <p class="daily-title">Hourly</p>
                   <div class="hourly-row"></div>
+                </div>
+                <div class="day-details">
+                  <div class="titlebar">
+                    <p class="daily-title">Day Detail</p>
+                    <p class="day-summ"></p>
+                  </div>
+                  <div class="summary-flex">
+                  <div class="melovesomeclouds">
+                    <p class="habanero"></p> <!-- have to name it like this bc for some readon uvindex(whatever) wont work  -->
+                    <p class="cloud-cover"></p>
+                  </div>
+
+                  <div class="sunny">
+                    <p class="sunrise"></p>
+                    <p class="sunset"></p>
+                  </div>
+
+                  <div class="airwater">
+                    <p class="humidity2"></p>
+                    <p class="dew-point"></p>
+                  </div>
+
+                  <div class="wind">
+                    <p class="ave-windspeed"></p>
+                    <p class="ave-windgust"></p>
+                  </div>
+                </div>
                 </div>
             </div>
         </div>
+        <footer class="foooterrr">
+          <a href="https://darksky.net/dev">POWERED BY DARKSKY API</a>
+        </footer>
         <script src="./skycons.js"></script>
         <script src="./app.js"></script>
     </body>
