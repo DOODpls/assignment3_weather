@@ -63,6 +63,7 @@ function search(ele) {
       resetDaily()
       windspd1 = "km/H"
       visibb = 'km'
+      temppp = 'c'
    };
 
   
@@ -72,6 +73,7 @@ function search(ele) {
     resetDaily()
     windspd1 = "mp/H"
     visibb = 'mi'
+    temppp = 'f'
   })
 
 var skycons = new Skycons({"color": "white"});
