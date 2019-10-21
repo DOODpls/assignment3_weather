@@ -264,7 +264,7 @@ function urlss(){ /////this is where most of the data come from
     cloudcov.textContent = "Cloud Cover: " + x.daily.data[0].cloudCover*100+'%'
     sunris.textContent = "Sunrise: " + sunriseee
     sunset.textContent = "Sunset: " + sunseteee
-    humidt.textContent = "Humidity: " + x.daily.data[0].humidity * 100+'%'
+    humidt.textContent = "Humidity: " + x.daily.data[0].humidity.toFixed(1) * 100+'%'
     dewpt.textContent = "Dew Point: " + x.daily.data[0].dewPoint+temppp
     avewinds.textContent = "Wind Speed: " + x.daily.data[0].windSpeed+windspd1
     avewindg.textContent = "Wind Gust: " + x.daily.data[0].windGust+windspd1
