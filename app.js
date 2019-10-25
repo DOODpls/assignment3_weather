@@ -143,7 +143,7 @@ function render(){
 
   
   weeksumm.textContent = x.daily.summary
-  
+  preload.style.display = 'none'
   
 
   skycons.set("icon0", Skycons = x.currently.icon);
@@ -203,7 +203,7 @@ function render(){
   for(y=0;y<8;y++){
     skycons.set('icons'+(y+1), Skycons = x.daily.data[y].icon) //////seperate loop for icons
   }
-  
+
 
 
 //--------------------------------------------HOURLY-------------------------------------------------//     
@@ -280,7 +280,7 @@ function render(){
   })
   .catch( err => {
     alert('Failed to retireve data')
-  })()
+  })
   
 }
 
