@@ -48,10 +48,8 @@ function search(ele) {
       }
     })
     .catch(err3 =>{
-      alert('Failed to retrieve location data')
-      locationData()
-        render()
-        resetDaily()
+      alert('Failed to retrieve location data on search')
+      
     })   
   }
 }
