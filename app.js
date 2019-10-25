@@ -203,7 +203,7 @@ function render(){
   for(y=0;y<8;y++){
     skycons.set('icons'+(y+1), Skycons = x.daily.data[y].icon) //////seperate loop for icons
   }
-  preload.style.display = 'none'
+  
 
 
 //--------------------------------------------HOURLY-------------------------------------------------//     
@@ -280,7 +280,7 @@ function render(){
   })
   .catch( err => {
     alert('Failed to retireve data')
-  })
+  })()
   
 }
 
