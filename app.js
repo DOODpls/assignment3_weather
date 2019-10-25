@@ -38,9 +38,7 @@ function search(ele) {
     .then(z => z.json())
     .then(z => {
       if(ele.value == ''){
-        locationData()
-        render()
-        resetDaily()
+        alert('No city entered')
       }else{
         locres = (z.latt+','+z.longt)
       render()
@@ -49,7 +47,6 @@ function search(ele) {
     })
     .catch(err3 =>{
       alert('Failed to retrieve location data on search')
-      
     })   
   }
 }
@@ -106,9 +103,9 @@ function render(){
   let weeksumm = document.querySelector('.week-summary')
   let dailycont = document.querySelector('.week-day-container')
   
-  var d = new Date()
-  var d2 = d.getDate()+'/'+(d.getMonth()+1)
-  var datetoday = d2
+  // var d = new Date()
+  // var d2 = d.getDate()+'/'+(d.getMonth()+1)
+  // var datetoday = d2
   
   var url2 = 'https://geocode.xyz/' + locres +'?json=1'   //this is where i convert the long,lat to city name
   fetch(url2)
