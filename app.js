@@ -263,13 +263,13 @@ function render(){
     skycons.set('icons'+(u+9), Skycons = x.hourly.data[u].icon) ////// i have to seperate the loop for the icons..
   }
 
-  
+  //////////////////-------------------daily detail--------------------///////////////////////
   /////convertin time again to AM/PM
   sunriseee = new Date( x.daily.data[0].sunriseTime *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
   sunseteee = new Date( x.daily.data[0].sunsetTime *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
   getelement()
   daysumm.textContent = "Summary: " + x.daily.data[0].summary
-  cloudcov.textContent = "Cloud Cover: " + x.daily.data[0].cloudCover*100+'%'
+  cloudcov.textContent = "Cloud Cover: " + x.daily.data[0].cloudCover.toFixed(1) *100+'%'
   sunris.textContent = "Sunrise: " + sunriseee
   sunset.textContent = "Sunset: " + sunseteee
   humidt.textContent = "Humidity: " + x.daily.data[0].humidity.toFixed(1) * 100+'%'
