@@ -40,7 +40,9 @@ function search(ele) {
     .then(z => z.json())
     .then(z => {
       if(ele.value == ''){
-        alert('No city entered')
+        alert('No city entered, returning to default city..')
+        resetDaily()
+        locationData()
       }else{
         locres = (z.latt+','+z.longt)
       render()
