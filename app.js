@@ -18,13 +18,15 @@ navigator.geolocation.getCurrentPosition(function showLocation(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
   locres = (lat.toFixed(4)+','+long.toFixed(4)); //////this is where i get the long and lat, locally on machine and limit it to 4 decimals
+  locationname()
   render()
   resetDaily()
 },function(error){
   if (error.code === error.PERMISSION_DENIED){
     locres = '53.5403912,-113.4960643'; /////if the user refuses to accept location, itll give default data... in Edmonton
-  render()
-  resetDaily()
+    locationname()
+    render()
+    resetDaily()
   }
 })
 }
@@ -43,6 +45,7 @@ function search(ele) {
         locres = (z.latt+','+z.longt)
       render()
       resetDaily()
+      locationname()
       }
     })
     .catch(err3 =>{
@@ -65,7 +68,7 @@ document.getElementById("cell").onclick = function() { ///// this is where i con
     resetDaily()
     windspd1 = "km/H"
     visibb = 'km'
-    temppp = '°C'
+    temppp = '°C '
   };
 
 
@@ -75,7 +78,7 @@ far.addEventListener('click', function(){
   resetDaily()
   windspd1 = "mp/H"
   visibb = 'mi'
-  temppp = '°F'
+  temppp = '°F '
 })
 
 var skycons = new Skycons({"color": "white"});
@@ -84,6 +87,21 @@ function urlss(){ /////this is where most of the data come from
   url1 = 'https://api.darksky.net/forecast/c34e122a56ae30a3090687878bce72c3/' + locres +'?'+unitt   //i have to use proxy because of CORS
 }
 
+
+
+function locationname(){
+  let cityy = document.querySelector('.city')
+  var url2 = 'https://geocode.xyz/' + locres +'?json=1'   //this is where i convert the long,lat to city name
+  fetch(url2)
+  .then(y => y.json())
+  .then(y => {
+    cityy.textContent = y.city +', '+ y.country
+    
+  })
+  .catch (err2 => {
+    alert('Failed to retrieve location data.')
+  })
+}
 
 //---------------------------------CURRENT------------------------------------------------//
 
@@ -99,7 +117,7 @@ function render(){
   let humid = document.querySelector('.humidity')
   let uvind = document.querySelector('.uvindex')
   let press = document.querySelector('.pressure')
-  let cityy = document.querySelector('.city')
+  
   let weeksumm = document.querySelector('.week-summary')
   let dailycont = document.querySelector('.week-day-container')
   
@@ -107,16 +125,7 @@ function render(){
   // var d2 = d.getDate()+'/'+(d.getMonth()+1)
   // var datetoday = d2
   
-  var url2 = 'https://geocode.xyz/' + locres +'?json=1'   //this is where i convert the long,lat to city name
-  fetch(url2)
-  .then(y => y.json())
-  .then(y => {
-    cityy.textContent = y.city +', '+ y.country
-    
-  })
-  .catch (err2 => {
-    alert('Failed to retrieve location data.')
-  })
+  
   urlss()
   fetch(proxyUrl + url1)
   .then(x => x.json())
@@ -131,7 +140,7 @@ function render(){
   windspd.textContent = 'Wind:  ' + x.currently.windSpeed + windspd1
   windir.style.transform = 'rotate(-'+x.currently.windBearing+'deg)'
   
-  visib.textContent = 'Visibility:  '+ x.currently.visibility + visibb
+  visib.textContent = 'Visibility:  '+ x.currently.visibility.toFixed(2) + visibb
   humid.textContent = 'Humidity:  ' + x.currently.humidity.toFixed(1) * 100+'%'
   uvind.textContent = 'UV Index:  '+ x.currently.uvIndex
   press.textContent = 'Pressure:  '+ x.currently.pressure+' hPa'
