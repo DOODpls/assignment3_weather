@@ -22,3 +22,7 @@ This is a API based project that combines what we learned on our javascript proj
 
 
 sorry i dont know how to write readme files
+
+
+
+https://theweathering.netlify.com/
