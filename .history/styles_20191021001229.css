@@ -373,11 +373,7 @@
     width: 100vw;
   }
 }
-@media (max-width:260px){
-  .city-text{
-    width: 100vmin;
-  }
-}
+
 .foooterrr{
   background-color: black;
   color: white;

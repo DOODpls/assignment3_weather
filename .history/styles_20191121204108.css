@@ -373,9 +373,9 @@
     width: 100vw;
   }
 }
-@media (max-width:260px){
+@media (max-width:705px){
   .city-text{
-    width: 100vmin;
+    width: 80vw;
   }
 }
 .foooterrr{
