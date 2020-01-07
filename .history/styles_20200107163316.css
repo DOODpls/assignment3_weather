@@ -269,8 +269,9 @@
     margin: 0;
 }
 .hourly-container{
+  flex: 100%;
   height: 500px;
-  width: 100%;
+  width: auto;
   background-color: #335277;
   display: flex;
   justify-content: center;
@@ -350,11 +351,12 @@
   background: #555;
 }
 .day-details{
+  flex: 100%;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: auto;
   height: 500px;
   background-color: #1c3049;
 }
@@ -384,9 +386,9 @@
   font-weight: bold;
   width: 300px;
   transition-duration: .5s;
-  text-align: center;
 }
 .summary-flex{
+  flex: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -394,12 +396,13 @@
   width: 800px;
   height: 500px;
   background-color: #1c3049;
+  position: relative;
   transition-duration: .5s;
 }
 
 @media (max-width: 950px){
   .summary-flex{
-    width: 100%;
+    width: auto;
     margin-right: 5px;
     margin-left: 5px;
   }
@@ -410,6 +413,7 @@
   .wind, .airwater, .sunny, .melovesomeclouds{
     font-size: 20px;
     font-weight: bold;
+    width: auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -419,21 +423,12 @@
   }
 
   .main-container {
-    width: 100%;
-  }
-  .week-container{
-    flex: none;
-    width: 100%;
-  }
-}
-@media (max-width:300px){
-  .week-stage, .hourly-row{
-    width: 90%;
+    width: 100vw;
   }
 }
 @media (max-width:260px){
   .city-text{
-    width: 100%;
+    width: 100vmin;
   }
 }
 .foooterrr{
@@ -442,8 +437,6 @@
   font-size: 12px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
 }
 a{
   text-decoration: none;

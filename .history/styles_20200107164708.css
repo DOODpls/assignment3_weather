@@ -387,6 +387,7 @@
   text-align: center;
 }
 .summary-flex{
+  flex: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -399,7 +400,7 @@
 
 @media (max-width: 950px){
   .summary-flex{
-    width: 100%;
+    width: auto;
     margin-right: 5px;
     margin-left: 5px;
   }
@@ -442,8 +443,6 @@
   font-size: 12px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
 }
 a{
   text-decoration: none;

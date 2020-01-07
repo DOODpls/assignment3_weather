@@ -350,11 +350,12 @@
   background: #555;
 }
 .day-details{
+  flex: 100%;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: auto;
   height: 500px;
   background-color: #1c3049;
 }
@@ -387,6 +388,7 @@
   text-align: center;
 }
 .summary-flex{
+  flex: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -399,7 +401,7 @@
 
 @media (max-width: 950px){
   .summary-flex{
-    width: 100%;
+    width: auto;
     margin-right: 5px;
     margin-left: 5px;
   }
@@ -410,6 +412,7 @@
   .wind, .airwater, .sunny, .melovesomeclouds{
     font-size: 20px;
     font-weight: bold;
+    width: auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -442,8 +445,6 @@
   font-size: 12px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
 }
 a{
   text-decoration: none;
