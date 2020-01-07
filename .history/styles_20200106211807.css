@@ -40,6 +40,10 @@
 .celcius:hover, .farenheight:hover{
   color: rgb(161, 161, 161);
 }
+.ui-helper-hidden-accessible{
+  visibility: hidden;
+  position: absolute;
+}
 .preload{
   background-image: url(./preloader.gif);
   height: 170px;
@@ -373,9 +377,9 @@
     width: 100vw;
   }
 }
-@media (max-width:705px){
+@media (max-width:260px){
   .city-text{
-    width: 80vw;
+    width: 100vmin;
   }
 }
 .foooterrr{

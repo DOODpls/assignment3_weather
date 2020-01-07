@@ -40,6 +40,9 @@
 .celcius:hover, .farenheight:hover{
   color: rgb(161, 161, 161);
 }
+.ui-helper-hidden-accessible{
+  visibility: hidden;
+}
 .preload{
   background-image: url(./preloader.gif);
   height: 170px;

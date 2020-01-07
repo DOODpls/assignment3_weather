@@ -32,9 +32,11 @@ navigator.geolocation.getCurrentPosition(function showLocation(position) {
 }
 
 
+
 locationData()
 function search(ele) {
   if(event.key === 'Enter') {
+    
     var url3 = 'https://geocode.xyz/' + ele.value +'?json=1'   //this is where i convert the long,lat to city name, this api has a limit, so please dont abuse it huhuhuhuu
     fetch(url3)
     .then(z => z.json())
@@ -276,6 +278,8 @@ function render(){
   /////convertin time again to AM/PM
   sunriseee = new Date( x.daily.data[0].sunriseTime *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
   sunseteee = new Date( x.daily.data[0].sunsetTime *1000).toLocaleTimeString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+
+  
   getelement()
   daysumm.textContent = "Summary: " + x.daily.data[0].summary
   cloudcov.textContent = "Cloud Cover: " + x.daily.data[0].cloudCover.toFixed(1) *100+'%'
@@ -304,6 +308,25 @@ function getelement(){
   avewindg = document.querySelector('.ave-windgust')
   habaneror = document.querySelector('.habanero') //uvindex(whatever) wont work idk why
 }
+
+
+// __________________________      Auto Complete     _________________________________________________
+
+jQuery(function () {
+  jQuery("#f_elem_city").autocomplete({
+  source: function (request, response) {
+    jQuery.getJSON(
+    "https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q="+request.term,
+    function (data) {
+      response(data);
+      console.log(data)
+    }
+    );
+  },
+  minLength: 3 
+  });
+});
+
 
 
 // window.addEventListener('load', function () {

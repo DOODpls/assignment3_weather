@@ -4,7 +4,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Barely Weather</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <title>The Weathering</title>
         <link rel="shortcut icon" href="./icons/favicon.ico" />
         <link
             rel="stylesheet"
@@ -25,7 +27,24 @@
             <div class="main-container">
                 <div class="today-container">
                     <div class="today-stage">
-                      <input type="text" class="city-text" id="city-enter" placeholder="Enter City" onkeydown="search(this)">
+                      <script type="text/javascript">
+ 
+                        jQuery(function () 
+                         {
+                           jQuery("#f_elem_city").autocomplete({
+                            source: function (request, response) {
+                             jQuery.getJSON(
+                              "https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q="+request.term,
+                              function (data) {
+                               response(data);
+                              }
+                             );
+                            },
+                            minLength: 3
+                           });
+                          });
+                        </script>
+                        <input class="city-text" type="text" name="ff_nm_from[]" value="" id="f_elem_city" onkeydown="search(this)"/>
                       <div class="unitswitcher">
                         <div class="celcius" id='cell'>C</div>
                         <br>
