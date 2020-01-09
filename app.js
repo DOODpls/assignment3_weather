@@ -12,7 +12,7 @@ function resetDaily(){
       delthr.innerHTML =''
 }
 
-var locres = Promise.resolve
+var locres;
 function locationData(){
 navigator.geolocation.getCurrentPosition(function showLocation(position) {
   lat = position.coords.latitude;
@@ -35,7 +35,7 @@ navigator.geolocation.getCurrentPosition(function showLocation(position) {
 locationData()
 function search(ele) {
   if(event.key === 'Enter') {
-    var url3 = 'https://geocode.xyz/' + ele.value +'?json=1'   //this is where i convert the long,lat to city name, this api has a limit, so please dont abuse it huhuhuhuu
+    var url3 = 'https://api.opencagedata.com/geocode/v1/json?key=3eb2cc6ab0ac4ef986e4c30c2da5e38c&q=' + ele.value + '&pretty=1&no_annotations=1'   //this is where i convert the long,lat to city name, this api has a limit, so please dont abuse it huhuhuhuu
     fetch(url3)
     .then(z => z.json())
     .then(z => {
@@ -44,14 +44,14 @@ function search(ele) {
         resetDaily()
         locationData()
       }else{
-        locres = (z.latt+','+z.longt)
+        locres = (z.results[0].geometry.lat+','+z.results[0].geometry.lng)
       render()
       resetDaily()
       locationname()
       }
     })
     .catch(err3 =>{
-      alert('Failed to retrieve location data on search')
+      alert("No place entered, Returning to default location")
     })   
   }
 }
@@ -93,12 +93,17 @@ function urlss(){ /////this is where most of the data come from
 
 function locationname(){
   let cityy = document.querySelector('.city')
-  var url2 = 'https://geocode.xyz/' + locres +'?json=1'   //this is where i convert the long,lat to city name
+  var searchval = document.querySelector('#f_elem_city')
+  if (searchval.value.length == 0){
+    var url2 = 'https://api.opencagedata.com/geocode/v1/json?key=3eb2cc6ab0ac4ef986e4c30c2da5e38c&q=' + locres + '&pretty=1&no_annotations=1'   //this is where i convert the long,lat to city name
+  } else if(searchval.value.length >0){
+    var url2 = 'https://api.opencagedata.com/geocode/v1/json?key=3eb2cc6ab0ac4ef986e4c30c2da5e38c&q=' + searchval.value + '&pretty=1&no_annotations=1' 
+  }
+  
   fetch(url2)
   .then(y => y.json())
   .then(y => {
-    cityy.textContent = y.city +', '+ y.country
-    
+    cityy.textContent = y.results[0].formatted;  
   })
   .catch (err2 => {
     alert('Failed to retrieve location data.')
@@ -312,10 +317,14 @@ jQuery(function () {
   jQuery("#f_elem_city").autocomplete({
   source: function (request, response) {
     jQuery.getJSON(
-    "https://secure.geobytes.com/AutoCompleteCity?key=7c756203dbb38590a66e01a5a3e1ad96&callback=?&q="+request.term,
+      'https://api.opencagedata.com/geocode/v1/json?key=3eb2cc6ab0ac4ef986e4c30c2da5e38c&q=' + request.term + '&pretty=1&no_annotations=1',
     function (data) {
-      response(data);
-      console.log(data)
+      arrr = Array();
+      var reslength = data.results.length;
+      for (i = 0; i < reslength; i++){
+        arrr[i] = data.results[i].formatted
+      }
+      response(arrr);
     }
     );
   },
@@ -323,6 +332,16 @@ jQuery(function () {
   });
 });
 
+
+$( "#searchbutton" ).click(function() {
+  $('.city-text').addClass('city-text-appear');
+});
+
+$(window).resize(function(){     
+  if ($('body').width() > 500 ){
+    $('.city-text').removeClass('city-text-appear');
+  }
+});
 // window.addEventListener('load', function () {
 //   var datee = document.getElementsByClassName('date-now')
 //   console.log(datee)

@@ -21,7 +21,6 @@
 }
 .today-container {
   flex: 30%;
-  width: 30%;
   display: flex;
   height: 502px;
   background: #222e3e;
@@ -122,7 +121,6 @@
 }
 .city{
   transition-duration: .5s;
-  text-align: center;
 }
 .today-temp {
     font-weight: 900;
@@ -138,19 +136,16 @@
   position: relative;
 }
 .city-text{
-  background-color: none;
+  border-radius: 5px;
   width: 100%;
   height: 30px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 17px;
-  color: rgb(255, 255, 255);
-  background-color: transparent;
+  color: #555;
   border: none;
-  border-bottom: 2px solid rgb(255, 255, 255);
   box-sizing: border-box;
   position: relative;
   top: -22px;
-  outline: none;
 }
 .sub-info{
   display: flex;
@@ -210,9 +205,9 @@
     font-size: 12px;
 }
 .week-container {
-  flex: 70%;
+    flex: 70%;
   height: 500px;
-  width: 70%;
+  width: auto;
   background-color: #36404d;
   display: flex;
   justify-content: center;
@@ -230,11 +225,9 @@
 }
 .week-stage {
   height: 320px;
-  width: 80%;
+  width: auto;
   display: flex;
   justify-content: space-between;
-  overflow-x: scroll;
-  overflow-y: hidden;
   
 }
 
@@ -254,6 +247,14 @@
 }
 .week-day-container:hover{
   opacity: .5;
+}
+@media (max-width:1890px){
+  .week-stage {
+  width: 80vmin;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  }
+
 }
 
 
@@ -280,7 +281,7 @@
 .hourly-row{
   display: flex;
   flex-direction: row;
-  width: 90%;
+  width: 1500px;
   overflow-x: scroll;
   overflow-y: hidden;
   height: 300px;
@@ -320,6 +321,11 @@
   transition-duration: .5s;
 }
 
+@media (max-width:1800px){
+  .hourly-row{
+    width: 80vw;
+  }
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -400,12 +406,7 @@
   }
 
 }
-@media (max-width:1000px){
-  .week-container{
-    flex: none;
-    width: 100%;
-  }
-}
+
 @media (max-width:705px){
   .wind, .airwater, .sunny, .melovesomeclouds{
     font-size: 20px;
@@ -419,6 +420,10 @@
   }
 
   .main-container {
+    width: 100%;
+  }
+  .week-container{
+    flex: none;
     width: 100%;
   }
   .week-stage, .hourly-row{

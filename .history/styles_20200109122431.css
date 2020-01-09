@@ -122,7 +122,6 @@
 }
 .city{
   transition-duration: .5s;
-  text-align: center;
 }
 .today-temp {
     font-weight: 900;
@@ -400,12 +399,7 @@
   }
 
 }
-@media (max-width:1000px){
-  .week-container{
-    flex: none;
-    width: 100%;
-  }
-}
+
 @media (max-width:705px){
   .wind, .airwater, .sunny, .melovesomeclouds{
     font-size: 20px;
@@ -419,6 +413,10 @@
   }
 
   .main-container {
+    width: 100%;
+  }
+  .week-container{
+    flex: none;
     width: 100%;
   }
   .week-stage, .hourly-row{

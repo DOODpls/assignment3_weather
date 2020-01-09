@@ -27,8 +27,11 @@
         <div class="page">
             <div class="main-container">
                 <div class="today-container">
-                  <form action="" method="post" name="form_citydetails" id="form_citydetails" class="searchform" enctype="multipart/form-data" onsubmit="return false;">
-                    <input class="ff_elem city-text" type="text" name="ff_nm_from[]" value="" id="f_elem_city" placeholder="Type City" onkeydown="search(this)"/>
+                  
+                  <form action="" method="post" name="form_citydetails" id="form_citydetails" class="search" enctype="multipart/form-data" onsubmit="return false;">
+                    <input class="ff_elem city-text" type="text" name="ff_nm_from[]" value="" id="f_elem_city" placeholder="Type City" onkeydown="search(this)"/><div class="searchbutton" id="searchbutton">
+                      <i class="fas fa-search"></i>
+                    </div>
                     </form>
                     <div class="today-stage">
                       <div class="unitswitcher">
