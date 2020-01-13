@@ -110,8 +110,22 @@ function locationname(){
   })
 }
 
+
 //---------------------------------CURRENT------------------------------------------------//
 
+
+
+
+// new Vue({
+//   el: '#today-container',
+//   data: {
+//   },
+//   methods: {
+//     opendescription
+//   }
+// })
+
+var title, description, from, to;
 function render(){
   
   let htem = document.querySelector('.today-temp')
@@ -152,6 +166,39 @@ function render(){
   uvind.textContent = 'UV Index:  '+ x.currently.uvIndex
   press.textContent = 'Pressure:  '+ x.currently.pressure+' hPa'
   
+  try{
+    title = x.alerts[0].title
+    description = x.alerts[0].description;
+    from = new Date( x.alerts[0].time *1000).toLocaleString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+    to = new Date( x.alerts[0].expires *1000).toLocaleString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+
+  }catch{
+
+  }
+  try{
+    if(x.alerts != undefined){
+      $('#today-container').append('<div class="alerts" id="alerts"></div>');
+      if(x.alerts[0].severity == "warning"){
+        document.querySelector('#alerts').style.backgroundColor = "red"
+      }else if(x.alerts[0].severity == "watch"){
+        document.querySelector('#alerts').style.backgroundColor = "orange"
+      }else if(x.alerts[0].severity == "advosory"){
+        document.querySelector('#alerts').style.backgroundColor = "green"
+      }
+      document.querySelector('#alerts').innerHTML = '<p>' + x.alerts[0].title + '</p>'
+      $('#today-container').append('<div class="alertinfo" id="alertinfo"></div>');
+      $("#alerts").click(
+        function() {
+          document.querySelector('#alertinfo').innerHTML = '<p class="from-to">' + from + " to " + to + '</p><p class="alert-description">' + description + '</p> <a class="alert-link" href="'+ x.alerts[0].uri +'">Weather.gc.ca</a>';
+            $('#alertinfo').toggle();
+        });
+    }else{
+      $('.alerts').remove();
+      $('.alertinfo').remove();
+    }
+  }catch(err){
+    console.log(err)
+  }
   
 //==========================================WEEKLY=================================================// 
 
@@ -310,6 +357,9 @@ function getelement(){
   habaneror = document.querySelector('.habanero') //uvindex(whatever) wont work idk why
 }
 
+//---------------------------------  Alerts  -----------------------------------------------------------//
+
+
 
 // __________________________      Auto Complete     _________________________________________________
 
@@ -342,9 +392,4 @@ $(window).resize(function(){
     $('.city-text').removeClass('city-text-appear');
   }
 });
-// window.addEventListener('load', function () {
-//   var datee = document.getElementsByClassName('date-now')
-//   console.log(datee)
-//   console.log(datee.length)
-//   console.log(datee[0])               getting value of html tag via htmlcollection.. but it doenst work
-// });
+   
