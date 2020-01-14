@@ -187,7 +187,7 @@ function render(){
       $('#today-container').append('<div class="alertinfo" id="alertinfo"></div>');
       $("#alerts").click(
         function() {
-          document.querySelector('#alertinfo').innerHTML = '<p class="from-to">' + from + " to " + to + '</p><p class="alert-description">' + description + '</p> <a class="alert-link" href="'+ x.alerts[0].uri +'">Weather.gc.ca</a>';
+          document.querySelector('#alertinfo').innerHTML = '<p class="from-to">' + from + " TO " + to + '</p><p class="alert-description">' + description + '</p> <a class="alert-link" href="'+ x.alerts[0].uri +'">Weather.gc.ca</a>';
             $('#alertinfo').toggle();
         });
     }else{
