@@ -45,9 +45,11 @@ function search(ele) {
         locationData()
       }else{
         locres = (z.results[0].geometry.lat+','+z.results[0].geometry.lng)
-      render()
-      resetDaily()
-      locationname()
+        render()
+        resetDaily()
+        locationname()
+        $('.alerts').remove();
+        $('.alertinfo').remove();
       }
     })
     .catch(err3 =>{
@@ -172,10 +174,6 @@ function render(){
     from = new Date( x.alerts[0].time *1000).toLocaleString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
     to = new Date( x.alerts[0].expires *1000).toLocaleString("en-US", {timeZone: x.timezone}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
 
-  }catch{
-
-  }
-  try{
     if(x.alerts != undefined){
       $('#today-container').append('<div class="alerts" id="alerts"></div>');
       if(x.alerts[0].severity == "warning"){
