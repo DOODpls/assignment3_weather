@@ -177,17 +177,17 @@ function render(){
     if(x.alerts != undefined){
       $('#today-container').append('<div class="alerts" id="alerts"></div>');
       if(x.alerts[0].severity == "warning"){
-        document.querySelector('#alerts').style.backgroundColor = "red"
+        $('#alerts').css({backgroundColor: 'red'})
       }else if(x.alerts[0].severity == "watch"){
-        document.querySelector('#alerts').style.backgroundColor = "orange"
+        $('#alerts').css({backgroundColor: 'orange'})
       }else if(x.alerts[0].severity == "advosory"){
-        document.querySelector('#alerts').style.backgroundColor = "green"
+        $('#alerts').css({backgroundColor: 'green'})
       }
       document.querySelector('#alerts').innerHTML = '<p>' + x.alerts[0].title + '</p>'
       $('#today-container').append('<div class="alertinfo" id="alertinfo"></div>');
       $("#alerts").click(
         function() {
-          document.querySelector('#alertinfo').innerHTML = '<p class="from-to">' + from + " TO " + to + '</p><p class="alert-description">' + description + '</p> <a class="alert-link" href="'+ x.alerts[0].uri +'">Weather.gc.ca</a>';
+          $('#alertinfo').html('<p class="from-to">' + from + " TO " + to + '</p><p class="alert-description">' + description + '</p> <a class="alert-link" href="'+ x.alerts[0].uri +'">Weather.gc.ca</a>');
             $('#alertinfo').toggle();
         });
     }else{
@@ -195,9 +195,10 @@ function render(){
       $('.alertinfo').remove();
     }
   }catch(err){
-    console.log(err)
+    console.log("No alerts in this location")
   }
   
+
 //==========================================WEEKLY=================================================// 
 
   
@@ -217,9 +218,9 @@ function render(){
 
     
     
-    const spann = document.createElement('span')
+    const spann = document.createElement('div')
     spann.className = 'spanini'
-    spann.id = 'spanini'
+    spann.id = 'spanini' + i
     const divs = document.createElement('div') ////////////i was planning to make the weekly divs clickable so i can change the hourly based on the day that i clicked, but im too dumb so ididnt do it.
     divs.className = ('week-day-container')
     const divsholdr = document.querySelector('.week-stage')
@@ -233,37 +234,23 @@ function render(){
     divsholdr.appendChild(spann)
     spann.appendChild(divs)
 
-    const rainn = document.createElement('p')
-    rainn.textContent = 'Rain: ' + x.daily.data[i].precipProbability.toFixed(1)* 100 +'%'
-    divs.appendChild(rainn)
-
-    const dates = document.createElement('p')
-    dates.className = 'date-now'
-    dates.textContent = datetoday
-    divs.appendChild(dates)
-
-    const br = document.createElement('br')
-    divs.appendChild(br)
-
-    const temph = document.createElement('p')
-    temph.textContent = 'High: '+ x.daily.data[i].temperatureHigh + temppp
-    divs.appendChild(temph)
-
-    const tempL = document.createElement('p')
-    tempL.textContent = 'Low: ' + x.daily.data[i].temperatureLow + temppp 
-    divs.appendChild(tempL)
-
-    const summ = document.createElement('p')
-    summ.textContent = x.daily.data[i].summary
-    summ.style.textAlign ='center'
-    summ.style.fontWeight='bold'
-    divs.appendChild(summ)
+    $(divs).append('<p class="dailyRain">Rain: ' + x.daily.data[i].precipProbability.toFixed(1)* 100 +'%' + '</p>')
+    $(divs).append('<p class="date-now">' + datetoday + '</p>')
+    $(divs).append('<p>High: ' + x.daily.data[i].temperatureHigh + temppp + '</p>')
+    $(divs).append('<p>Low: ' + x.daily.data[i].temperatureLow + temppp + '</p>')
+    $(divs).append('<p class="dailySumm" id="dailySumm">' + x.daily.data[i].summary + '</p>')
+    
+    $('#spanini' + i).click( function(){
+      
+      console.log(dately)
+    })
   }
+  var y;
   for(y=0;y<8;y++){
     skycons.set('icons'+(y+1), Skycons = x.daily.data[y].icon) //////seperate loop for icons
   }
 
-
+  
 
 //--------------------------------------------HOURLY-------------------------------------------------//     
     
@@ -379,6 +366,7 @@ jQuery(function () {
   minLength: 3
   });
 });
+
 
 
 $( "#searchbutton" ).click(function() {
