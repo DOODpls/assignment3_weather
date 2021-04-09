@@ -87,7 +87,7 @@ far.addEventListener('click', function(){
 
 var skycons = new Skycons({"color": "white"});
 function urlss(){ /////this is where most of the data come from
-  proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  proxyUrl = 'https://secret-ocean-49799.herokuapp.com/';
   url1 = 'https://api.darksky.net/forecast/c34e122a56ae30a3090687878bce72c3/' + locres +'?'+unitt   //i have to use proxy because of CORS
 }
 
